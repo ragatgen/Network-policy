@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app2-to-app
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      app: <your-app-label>   # Replace with the label selector of your app pods
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: app2
+    ports:
+    - protocol: TCP
+      port: 80
